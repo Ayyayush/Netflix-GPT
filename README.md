@@ -18,6 +18,10 @@ This section explains everything done during the setup and development of the pr
 
 ---
 
+
+
+
+
 # ⭐ Step-1: Initial Setup (Summary)
 
 ### ✔ Create React App  
@@ -34,6 +38,10 @@ Tailwind CSS was added to the project for modern, utility-first styling.
 This completed the styling setup for the project.
 
 ---
+
+
+
+
 
 # ⭐ Step-2: Feature Planning & App Structure
 
@@ -52,6 +60,10 @@ Below are the full features planned and documented for the Netflix GPT project.
 - They will be redirected to the **Browse Page** only after successful login.
 
 ---
+
+
+
+
 
 # 👥 Features for Logged-In Users (Authenticated Users)
 
@@ -73,6 +85,11 @@ These features are accessible **only after authentication**.
 
 ---
 
+
+### Login Form
+
+
+
 # 🤖 Netflix GPT Features (AI-ish Movie Features)
 
 ### 🔍 Search Bar
@@ -82,6 +99,12 @@ Allows users to search for movies.
 Provides a recommendation list based on search terms.
 
 ---
+
+
+
+
+
+
 
 # 🧩 Summary of All Features
 
