@@ -49,6 +49,8 @@ Below are the full features planned and documented for the Netflix GPT project.
 
 ---
 
+### Routing of App
+
 # 👤 Features for New Users (Unauthenticated Users)
 
 ### 🔹 Authentication Pages
@@ -86,8 +88,15 @@ These features are accessible **only after authentication**.
 ---
 
 
+
+
+
 ### Login Form
 
+
+### Form Validation
+
+# learning and using use Ref hook 
 
 
 # 🤖 Netflix GPT Features (AI-ish Movie Features)
