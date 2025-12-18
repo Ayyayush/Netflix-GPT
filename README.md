@@ -109,6 +109,14 @@ Includes:
 - Production deployment completed
 - GitHub integration enabled for deployment workflows
 
+
+### Implemented Sing In user Api
+
+
+### Create User Account
+
+###  Create Redux Store wiht userSlice
+
 ---
 
 ## 🤖 Netflix-GPT (AI-Based Features)
