@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
 
@@ -10,58 +11,54 @@ import {
 import { auth } from "../utils/firebase";
 
 const Login = () => {
-  // State to toggle between Sign In and Sign Up
+  // Toggle between Sign In / Sign Up
   const [isSignInForm, setIsSignInForm] = useState(true);
 
-  // State to store validation / firebase errors
+  // Store validation / firebase errors
   const [errorMessage, setErrorMessage] = useState(null);
 
-  // Input refs (useRef avoids re-renders on every keystroke)
+  // Navigation hook (valid here because Login is a route)
+  const navigate = useNavigate();
+
+  // Input refs
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
 
-  // Handles Sign In / Sign Up button click
   const handleButtonClick = () => {
-    // Validate form data
     const message = checkValidData(
-      isSignInForm ? null : name.current?.value, // name required only for Sign Up
+      isSignInForm ? null : name.current?.value,
       email.current.value,
       password.current.value
     );
 
-    // Set validation error if any
     setErrorMessage(message);
-
-    // Stop execution if validation fails
     if (message) return;
 
-    // ---------------- SIGN UP ----------------
+    // -------- SIGN UP --------
     if (!isSignInForm) {
       createUserWithEmailAndPassword(
         auth,
         email.current.value,
         password.current.value
       )
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log("User signed up:", user);
+        .then(() => {
+          navigate("/browse"); // ✅ redirect ONLY here
         })
         .catch((error) => {
           setErrorMessage(error.message);
         });
     }
 
-    // ---------------- SIGN IN ----------------
+    // -------- SIGN IN --------
     else {
       signInWithEmailAndPassword(
         auth,
         email.current.value,
         password.current.value
       )
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log("User signed in:", user);
+        .then(() => {
+          navigate("/browse"); // ✅ redirect ONLY here
         })
         .catch((error) => {
           setErrorMessage(error.message);
@@ -69,27 +66,25 @@ const Login = () => {
     }
   };
 
-  // Toggle between Sign In and Sign Up forms
   const toggleSignInForm = () => {
     setIsSignInForm(!isSignInForm);
-    setErrorMessage(null); // clear error on toggle
+    setErrorMessage(null);
   };
 
   return (
     <div className="relative h-screen w-screen bg-black">
-      {/* Background Image */}
+      {/* Background */}
       <img
         src="https://singh-cp.github.io/netflix-landingpage/images/netflix-background-image.jpg"
         alt="banner"
         className="absolute top-0 left-0 w-full h-full object-cover opacity-60"
       />
 
-      {/* Overlay */}
       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-40"></div>
 
       <Header />
 
-      {/* AUTH FORM */}
+      {/* FORM */}
       <form
         onSubmit={(e) => e.preventDefault()}
         className="absolute top-1/2 left-1/2 w-[350px]
@@ -100,7 +95,6 @@ const Login = () => {
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
 
-        {/* NAME FIELD (only for Sign Up) */}
         {!isSignInForm && (
           <input
             ref={name}
@@ -110,7 +104,6 @@ const Login = () => {
           />
         )}
 
-        {/* EMAIL */}
         <input
           ref={email}
           type="text"
@@ -118,7 +111,6 @@ const Login = () => {
           className="p-4 my-3 w-full rounded bg-gray-700"
         />
 
-        {/* PASSWORD */}
         <input
           ref={password}
           type="password"
@@ -126,14 +118,12 @@ const Login = () => {
           className="p-4 my-3 w-full rounded bg-gray-700"
         />
 
-        {/* ERROR MESSAGE */}
         {errorMessage && (
           <p className="text-red-500 font-semibold text-sm py-2">
             {errorMessage}
           </p>
         )}
 
-        {/* SUBMIT BUTTON */}
         <button
           onClick={handleButtonClick}
           className="w-full bg-red-700 p-3 rounded
@@ -142,7 +132,6 @@ const Login = () => {
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
 
-        {/* TOGGLE SIGN IN / SIGN UP */}
         <p
           className="py-4 cursor-pointer hover:underline text-sm"
           onClick={toggleSignInForm}

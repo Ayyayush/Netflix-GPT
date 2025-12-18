@@ -3,7 +3,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Provider, useDispatch } from "react-redux";
 
 // Components
-import Login from "./components/Login";
+import Login from "./components/login";
 import Browse from "./components/Browse";
 
 // Redux
@@ -18,23 +18,22 @@ import { auth } from "./utils/firebase";
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <Login />, // Login page (NO Header)
+    element: <Login />,
   },
   {
     path: "/browse",
-    element: <Browse />, // Browse page (Header inside Browse)
+    element: <Browse />,
   },
 ]);
 
-// ---------------- APP WRAPPER ----------------
+// ---------------- APP CONTENT ----------------
 const AppContent = () => {
   const dispatch = useDispatch();
 
-  // Listen to Firebase auth state changes
+  // Listen to Firebase auth state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in → store user in Redux
         const { uid, email, displayName } = user;
 
         dispatch(
@@ -45,12 +44,10 @@ const AppContent = () => {
           })
         );
       } else {
-        // User is signed out → clear Redux store
         dispatch(removeUser());
       }
     });
 
-    // Cleanup listener on unmount
     return () => unsubscribe();
   }, [dispatch]);
 
@@ -60,7 +57,6 @@ const AppContent = () => {
 // ---------------- MAIN APP ----------------
 function App() {
   return (
-    // Provide Redux store to entire app
     <Provider store={appStore}>
       <AppContent />
     </Provider>
