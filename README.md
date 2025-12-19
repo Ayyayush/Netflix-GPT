@@ -116,6 +116,10 @@ Includes:
 ### Create User Account
 
 ###  Create Redux Store wiht userSlice
+### Implemented Sing out
+### Updated Profile
+### Bufguix : Sing up[ user displayname and profile picture updated 
+### Buif gix if the user is not logged in redirect / browse to login page vice versa]
 
 ---
 

@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import Header from "./Header";
@@ -18,7 +17,6 @@ const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const name = useRef(null);
@@ -51,10 +49,6 @@ const Login = () => {
           });
         })
         .then(() => {
-          /*
-           * 🔥 Akshay Saini way
-           * Always read updated user from auth.currentUser
-           */
           const { uid, email, displayName, photoURL } = auth.currentUser;
 
           dispatch(
@@ -65,8 +59,6 @@ const Login = () => {
               photoURL,
             })
           );
-
-          navigate("/browse");
         })
         .catch((error) => {
           setErrorMessage(error.message);
@@ -79,25 +71,36 @@ const Login = () => {
         auth,
         email.current.value,
         password.current.value
-      )
-        .then(() => {
-          navigate("/browse");
-        })
-        .catch((error) => {
-          setErrorMessage(error.message);
-        });
+      ).catch((error) => {
+        setErrorMessage(error.message);
+      });
     }
   };
 
+  const toggleSignInForm = () => {
+    setIsSignInForm(!isSignInForm);
+    setErrorMessage(null);
+  };
+
   return (
-    <div className="relative h-screen w-screen bg-black">
+    <div
+      className="relative h-screen w-screen bg-cover bg-center"
+      style={{
+        backgroundImage:
+          "url('https://singh-cp.github.io/netflix-landingpage/images/netflix-background-image.jpg')",
+      }}
+    >
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black opacity-60"></div>
+
       <Header />
 
+      {/* FORM */}
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="absolute top-1/2 left-1/2 w-[350px]
+        className="relative z-10 absolute top-1/2 left-1/2 w-[350px]
                    -translate-x-1/2 -translate-y-1/2
-                   bg-black bg-opacity-60 p-10 rounded-lg text-white"
+                   bg-black bg-opacity-70 p-10 rounded-lg text-white"
       >
         <h1 className="text-3xl font-bold mb-5">
           {isSignInForm ? "Sign In" : "Sign Up"}
@@ -131,11 +134,22 @@ const Login = () => {
         )}
 
         <button
+          type="button"
           onClick={handleButtonClick}
-          className="w-full bg-red-700 p-3 rounded font-semibold"
+          className="w-full bg-red-700 p-3 rounded
+                     font-semibold hover:bg-red-600 transition"
         >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
+
+        <p
+          className="py-4 cursor-pointer hover:underline text-sm"
+          onClick={toggleSignInForm}
+        >
+          {isSignInForm
+            ? "New here? Sign Up Now"
+            : "Already registered? Sign In Now"}
+        </p>
       </form>
     </div>
   );
