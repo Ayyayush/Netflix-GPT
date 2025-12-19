@@ -1,26 +1,26 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
 
-// Firebase imports
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
+
 import { auth } from "../utils/firebase";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
-  // Toggle between Sign In / Sign Up
   const [isSignInForm, setIsSignInForm] = useState(true);
-
-  // Store validation / firebase errors
   const [errorMessage, setErrorMessage] = useState(null);
 
-  // Navigation hook (valid here because Login is a route)
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // Input refs
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
@@ -35,22 +35,45 @@ const Login = () => {
     setErrorMessage(message);
     if (message) return;
 
-    // -------- SIGN UP --------
+    /* ================= SIGN UP ================= */
     if (!isSignInForm) {
       createUserWithEmailAndPassword(
         auth,
         email.current.value,
         password.current.value
       )
+        .then((userCredential) => {
+          const user = userCredential.user;
+
+          return updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: "https://avatars.githubusercontent.com/u/140370865?v=4",
+          });
+        })
         .then(() => {
-          navigate("/browse"); // ✅ redirect ONLY here
+          /*
+           * 🔥 Akshay Saini way
+           * Always read updated user from auth.currentUser
+           */
+          const { uid, email, displayName, photoURL } = auth.currentUser;
+
+          dispatch(
+            addUser({
+              uid,
+              email,
+              displayName,
+              photoURL,
+            })
+          );
+
+          navigate("/browse");
         })
         .catch((error) => {
           setErrorMessage(error.message);
         });
     }
 
-    // -------- SIGN IN --------
+    /* ================= SIGN IN ================= */
     else {
       signInWithEmailAndPassword(
         auth,
@@ -58,7 +81,7 @@ const Login = () => {
         password.current.value
       )
         .then(() => {
-          navigate("/browse"); // ✅ redirect ONLY here
+          navigate("/browse");
         })
         .catch((error) => {
           setErrorMessage(error.message);
@@ -66,25 +89,10 @@ const Login = () => {
     }
   };
 
-  const toggleSignInForm = () => {
-    setIsSignInForm(!isSignInForm);
-    setErrorMessage(null);
-  };
-
   return (
     <div className="relative h-screen w-screen bg-black">
-      {/* Background */}
-      <img
-        src="https://singh-cp.github.io/netflix-landingpage/images/netflix-background-image.jpg"
-        alt="banner"
-        className="absolute top-0 left-0 w-full h-full object-cover opacity-60"
-      />
-
-      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-40"></div>
-
       <Header />
 
-      {/* FORM */}
       <form
         onSubmit={(e) => e.preventDefault()}
         className="absolute top-1/2 left-1/2 w-[350px]
@@ -119,27 +127,15 @@ const Login = () => {
         />
 
         {errorMessage && (
-          <p className="text-red-500 font-semibold text-sm py-2">
-            {errorMessage}
-          </p>
+          <p className="text-red-500 text-sm py-2">{errorMessage}</p>
         )}
 
         <button
           onClick={handleButtonClick}
-          className="w-full bg-red-700 p-3 rounded
-                     font-semibold hover:bg-red-600 transition"
+          className="w-full bg-red-700 p-3 rounded font-semibold"
         >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
-
-        <p
-          className="py-4 cursor-pointer hover:underline text-sm"
-          onClick={toggleSignInForm}
-        >
-          {isSignInForm
-            ? "New here? Sign Up Now"
-            : "Already registered? Sign In Now"}
-        </p>
       </form>
     </div>
   );

@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "netflix-gpt-a11cc"
-  }
+  },
+  "targets": {
+    "netflix-gpt-a11cc": {
+      "hosting": {
+        "clean": [
+          "netflix-gpt-clean"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
