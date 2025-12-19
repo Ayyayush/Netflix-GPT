@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
+import { User_avatar } from "../utils/constants";
 
 import {
   createUserWithEmailAndPassword,
@@ -45,7 +46,7 @@ const Login = () => {
 
           return updateProfile(user, {
             displayName: name.current.value,
-            photoURL: "https://avatars.githubusercontent.com/u/140370865?v=4",
+            photoURL: User_avatar, // ✅ FIXED
           });
         })
         .then(() => {

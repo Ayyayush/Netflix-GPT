@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { LOGO } from "../utils/constants";
 
 import { auth } from "../utils/firebase";
 import { addUser, removeUser } from "../utils/userSlice";
@@ -45,7 +46,7 @@ const Header = () => {
     <div className="absolute w-full px-8 py-2 bg-gradient-to-b from-black z-50 flex justify-between items-center">
       <img
         className="w-40"
-        src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"
+        src={LOGO}
         alt="logo"
       />
 

@@ -120,7 +120,8 @@ Includes:
 ### Updated Profile
 ### Bufguix : Sing up[ user displayname and profile picture updated 
 ### Buif gix if the user is not logged in redirect / browse to login page vice versa]
-
+### Unsubsrivbe on auth state change 
+### Add Hardcoded values to constant files 
 ---
 
 ## 🤖 Netflix-GPT (AI-Based Features)
