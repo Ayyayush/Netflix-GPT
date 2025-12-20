@@ -43,6 +43,19 @@ Development Server:
 - Added hardcoded values to the constants file
 - Register TMDB API & create an app & get access token
 - Get Data from TMDB now playing movies list API and
+- Custom Hook for now playing movies
+- Create movieSlice
+- Update Store with movies  data
+- Planning for MainContainer & Secondary container
+- Fetch Data for Trailer Video
+- Update Store with Trailer Video data 
+- Embedded the Youtube Video and autoplay it as mute 
+- Tailwind classes to give netflix look to maincontainer
+- Build Secondary Component
+
+
+
+
 
 ---
 
