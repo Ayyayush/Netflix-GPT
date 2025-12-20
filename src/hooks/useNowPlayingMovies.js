@@ -6,19 +6,23 @@ import { addNowPlayingMovies } from "../utils/moviesSlice";
 const useNowPlayingMovies = () => {
   const dispatch = useDispatch();
 
-  // 👇 Prevent duplicate API calls
   const nowPlayingMovies = useSelector(
     (store) => store.movies.nowPlayingMovies
   );
 
   const getNowPlayingMovies = async () => {
     try {
+      console.log("Fetching Now Playing Movies...");
+
       const response = await fetch(
         "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
         API_OPTIONS
       );
 
       const data = await response.json();
+
+      console.log("Movies fetched:", data.results);
+
       dispatch(addNowPlayingMovies(data.results));
     } catch (error) {
       console.error("Error fetching movies:", error);
@@ -26,10 +30,10 @@ const useNowPlayingMovies = () => {
   };
 
   useEffect(() => {
-    if (!nowPlayingMovies) {
+    if (!nowPlayingMovies || nowPlayingMovies.length === 0) {
       getNowPlayingMovies();
     }
-  }, [nowPlayingMovies]);
+  }, []);
 };
 
 export default useNowPlayingMovies;

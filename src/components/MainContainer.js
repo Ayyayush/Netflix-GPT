@@ -8,14 +8,18 @@ const MainContainer = () => {
     (store) => store.movies?.nowPlayingMovies
   );
 
-  if (!movies || movies.length === 0) return null;   // early return 
+  // Guard condition
+  if (!movies || movies.length === 0) return null;
 
   const mainMovie = movies[0];
 
   return (
-    <div className="text-white p-4">
-      <VideoTitle />
-      <VideoBackground />
+    <div className="relative w-screen h-screen overflow-hidden">
+      <VideoTitle
+        title={mainMovie.title}
+        overview={mainMovie.overview}
+      />
+      <VideoBackground movieId={mainMovie.id} />
     </div>
   );
 };

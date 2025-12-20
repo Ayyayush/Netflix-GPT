@@ -5,28 +5,19 @@ import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
 
 const Browse = () => {
-  // Custom hook handles fetching & dispatching
+  // Fetch & store now playing movies in redux
   useNowPlayingMovies();
 
   return (
-    <div>
+    <div className="bg-black min-h-screen">
+      {/* Header stays on top */}
       <Header />
-      <MainContainer/>
-      <SecondaryContainer/>
 
-      {/* Movie sections will be added here
-      MainContainer
-       - VideoContainer
-       - VideoTitle
-      Secondary Container
-        - Movie List * n 
-        - Cards * n
-        - 
-        - 
-
-
-
-       */}
+      {/* Push content below fixed header */}
+      <div className="pt-[72px]">
+        <MainContainer />
+        <SecondaryContainer />
+      </div>
     </div>
   );
 };
