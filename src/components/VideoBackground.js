@@ -48,6 +48,8 @@ const VideoBackground = ({ movieId }) => {
         title="Trailer"
         allow="autoplay; fullscreen"
       ></iframe>
+
+      
     </div>
   );
 };
