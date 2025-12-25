@@ -2,6 +2,9 @@ import React from "react";
 import Header from "./Header";
 import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
+import GPTSearch from "./GPTSearch";
+
+import { useSelector } from "react-redux";
 
 // Movie fetching hooks
 import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
@@ -10,7 +13,9 @@ import useTopRatedMovies from "../hooks/useTopRatedMovies";
 import usePopularMovies from "../hooks/usePopularMovies";
 
 const Browse = () => {
-  // 🔥 Fetch all movie categories (runs once each)
+  const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
+
+  // Fetch movies only once
   useNowPlayingMovies();
   useUpcomingMovies();
   useTopRatedMovies();
@@ -21,10 +26,16 @@ const Browse = () => {
       {/* Header */}
       <Header />
 
-      {/* Content below fixed header */}
+      {/* Content */}
       <div className="pt-[72px]">
-        <MainContainer />
-        <SecondaryContainer />
+        {showGptSearch ? (
+          <GPTSearch />
+        ) : (
+          <>
+            <MainContainer />
+            <SecondaryContainer />
+          </>
+        )}
       </div>
     </div>
   );

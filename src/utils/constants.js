@@ -6,6 +6,10 @@ export const LOGO =
 export const USER_AVATAR =
   "https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.jpg";
 
+// Background image
+export const BG_URL =
+  "https://singh-cp.github.io/netflix-landingpage/images/netflix-background-image.jpg";
+
 // TMDB API options
 export const API_OPTIONS = {
   method: "GET",
@@ -16,5 +20,4 @@ export const API_OPTIONS = {
   },
 };
 
-// TMDB image CDN base URL
 export const IMG_CDN_URL = "https://image.tmdb.org/t/p/w500";
