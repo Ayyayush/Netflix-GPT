@@ -59,6 +59,8 @@ Netflix-GPT is a **Netflix-inspired web application** built using **Create React
 - Add separate hooks for different movie categories  
   (Upcoming, Trending, Popular, etc.)
 - Building GPT Search Feature 
+GPT Search Page
+Multi- Lnaguage Feature in our Application (important feature )
 
 ---
 

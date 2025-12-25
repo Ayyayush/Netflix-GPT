@@ -20,4 +20,13 @@ export const API_OPTIONS = {
   },
 };
 
+// Image CDN
 export const IMG_CDN_URL = "https://image.tmdb.org/t/p/w500";
+
+// ✅ Supported Languages (Correct Format)
+export const SUPPORTED_LANGUAGES = [
+  { identifier: "en", name: "English" },
+  { identifier: "hi", name: "Hindi" },
+  { identifier: "zh", name: "Chinese" },
+  { identifier: "es", name: "Spanish" },
+];
