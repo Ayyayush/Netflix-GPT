@@ -30,3 +30,6 @@ export const SUPPORTED_LANGUAGES = [
   { identifier: "zh", name: "Chinese" },
   { identifier: "es", name: "Spanish" },
 ];
+
+
+const OPENAI_KEY=""
