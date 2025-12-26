@@ -1,0 +1,5 @@
+[35mpackage-lock.json[m[36m:[m      "resolved": "https://registry.npmjs.org/queue-microtask/-/queue-microta[1;31msk-[m1.2.3.tgz",
+[35msrc/index.css[m[36m:[m  -H "Authorization: Bearer [1;31msk-[mproj-ys4EPxwB4QWZ7M2sVeF47U8Rncr2YN-agErtZGCErfJO3nwvBpWWAYjgP_3-dgwTyrdn1Cij00T3BlbkFJH5-xj6pMOhhR4fJ0oaIo4COZYczVdrS7mzsYnqZ3NZOr7Hziynh3WtNu25s_ps1y4mKjKx-q8A" \
+[35msrc/index.css[m[36m:[m  apiKey: "[1;31msk-[mproj-ys4EPxwB4QWZ7M2sVeF47U8Rncr2YN-agErtZGCErfJO3nwvBpWWAYjgP_3-dgwTyrdn1Cij00T3BlbkFJH5-xj6pMOhhR4fJ0oaIo4COZYczVdrS7mzsYnqZ3NZOr7Hziynh3WtNu25s_ps1y4mKjKx-q8A",
+[35msrc/utils/constants.js[m[36m:[mconst OPENAI_KEY="[1;31msk-[mproj-ys4EPxwB4QWZ7M2sVeF47U8Rncr2YN-agErtZGCErfJO3nwvBpWWAYjgP_3-dgwTyrdn1Cij00T3BlbkFJH5-xj6pMOhhR4fJ0oaIo4COZYczVdrS7mzsYnqZ3NZOr7Hziynh3WtNu25s_ps1y4mKjKx-q8A"
+[35msrc/utils/openai.js[m[36m:[m  apiKey: "[1;31msk-[mproj-ys4EPxwB4QWZ7M2sVeF47U8Rncr2YN-agErtZGCErfJO3nwvBpWWAYjgP_3-dgwTyrdn1Cij00T3BlbkFJH5-xj6pMOhhR4fJ0oaIo4COZYczVdrS7mzsYnqZ3NZOr7Hziynh3WtNu25s_ps1y4mKjKx-q8A",
