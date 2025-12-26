@@ -16,17 +16,19 @@ export const API_OPTIONS = {
   headers: {
     accept: "application/json",
     Authorization:
-      "Bearer " + process.env.REACT_APP_TMDB_KEY, // ✅ FIXED
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZTAxZjM5YTE1YTU3OGNmZDU1ZTlmOTdlYzY5MDRhNSIsIm5iZiI6MTc2NjE0ODgyNS41NDU5OTk4LCJzdWIiOiI2OTQ1NGFkOWI3NjMxYTc5YmQwNzI2NWIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.rPOTbdl1DN_07LtGUFD92pYqww28R2ADeieMqDYIA9A",
   },
 };
 
 // Image CDN
 export const IMG_CDN_URL = "https://image.tmdb.org/t/p/w500";
 
-// Supported Languages
+// ✅ Supported Languages (Correct Format)
 export const SUPPORTED_LANGUAGES = [
   { identifier: "en", name: "English" },
   { identifier: "hi", name: "Hindi" },
   { identifier: "zh", name: "Chinese" },
   { identifier: "es", name: "Spanish" },
 ];
+
+
