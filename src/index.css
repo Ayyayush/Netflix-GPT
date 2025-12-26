@@ -4,6 +4,16 @@
 
 
 
+/* Netflix-style scrollbar hide */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+
 /* 
 curl https://api.openai.com/v1/responses \
   -H "Content-Type: application/json" \

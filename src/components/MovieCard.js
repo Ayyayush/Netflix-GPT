@@ -5,10 +5,21 @@ const MovieCard = ({ posterPath }) => {
   if (!posterPath) return null;
 
   return (
-    <div className="min-w-[150px]">
+    <div
+      className="
+        relative min-w-[160px] md:min-w-[180px] lg:min-w-[200px]
+        transition-transform duration-300 ease-out
+        hover:scale-110 hover:z-20
+      "
+    >
       <img
-        className="rounded-lg hover:scale-105 transition-transform duration-300 cursor-pointer"
-        alt="Movie"
+        className="
+          rounded-md
+          cursor-pointer
+          shadow-md
+          object-cover
+        "
+        alt="Movie Poster"
         src={IMG_CDN_URL + posterPath}
       />
     </div>

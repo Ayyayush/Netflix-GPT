@@ -1,28 +1,38 @@
-import React, { useState, useRef } from "react";
-import { BG_URL, API_OPTIONS, IMG_CDN_URL } from "../utils/constants";
+import React, { useState, useRef, useEffect } from "react";
+import { BG_URL, API_OPTIONS } from "../utils/constants";
 import languageConstants from "../utils/languageConstants";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import openai from "../utils/openai";
 import { mockGptResponse } from "../utils/mockGpt";
+import { addGptMovieResult } from "../utils/gptSlice";
 
 const GPTSearchBar = () => {
-  const [query, setQuery] = useState("");                 // user search text
-  const [movies, setMovies] = useState([]);               // final TMDB movies
-  const [loading, setLoading] = useState(false);          // loading state
+  const [query, setQuery] = useState("");                 // user input
+  const [loading, setLoading] = useState(false);         // loading flag
+  const [bgOffset, setBgOffset] = useState(0);           // scroll parallax
 
-  const cacheRef = useRef({});                             // cache results by query
+  const cacheRef = useRef({});                            // cache results
+  const dispatch = useDispatch();
   const langKey = useSelector((store) => store.config.lang);
+
+  /* ======================================================
+     🎞️ BACKGROUND PARALLAX ON SCROLL (NETFLIX FEEL)
+     ====================================================== */
+  useEffect(() => {
+    const handleScroll = () => {
+      setBgOffset(window.scrollY * 0.2);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // basic guards
     if (!query.trim() || loading) return;
 
     // ================= CACHE CHECK =================
-    // If this query was already searched, reuse it
     if (cacheRef.current[query]) {
-      setMovies(cacheRef.current[query]);
+      dispatch(addGptMovieResult(cacheRef.current[query]));
       return;
     }
 
@@ -31,9 +41,7 @@ const GPTSearchBar = () => {
     try {
       let movieNames = [];
 
-      /* =========================================================
-         STEP 1: TRY GPT (OPENAI)
-         ========================================================= */
+      /* ================= TRY OPENAI ================= */
       try {
         const gptPrompt =
           "Act as a movie recommendation system. " +
@@ -45,26 +53,15 @@ const GPTSearchBar = () => {
           messages: [{ role: "user", content: gptPrompt }],
         });
 
-        // Convert GPT text → array of movie names
         movieNames = gptResponse.choices[0].message.content
           .split(",")
           .map((m) => m.trim());
-
-        console.log("✅ Using GPT results:", movieNames);
-      } catch (gptError) {
-        /* =========================================================
-           STEP 1 (FALLBACK): MOCK GPT
-           ========================================================= */
-        console.warn("⚠️ GPT failed, using mock GPT instead");
-
+      } catch {
+        /* ================= FALLBACK MOCK GPT ================= */
         movieNames = mockGptResponse(query);
-
-        console.log("🧪 Using mock GPT results:", movieNames);
       }
 
-      /* =========================================================
-         STEP 2: FETCH MOVIES FROM TMDB (COMMON FOR BOTH)
-         ========================================================= */
+      /* ================= TMDB FETCH ================= */
       const moviePromises = movieNames.map((movie) =>
         fetch(
           `https://api.themoviedb.org/3/search/movie` +
@@ -75,66 +72,88 @@ const GPTSearchBar = () => {
       );
 
       const tmdbResults = await Promise.all(moviePromises);
+      const movieResults = tmdbResults.map((r) => r.results || []);
 
-      // pick first relevant result for each movie
-      const finalMovies = tmdbResults
-        .map((r) => r.results?.[0])
-        .filter(Boolean);
-
-      // cache results
-      cacheRef.current[query] = finalMovies;
-      setMovies(finalMovies);
+      const payload = { movieNames, movieResults };
+      cacheRef.current[query] = payload;
+      dispatch(addGptMovieResult(payload));
     } catch (err) {
-      console.error("❌ TMDB Error:", err);
-      alert("Something went wrong. Please try again.");
+      console.error("TMDB Error:", err);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div
-      className="min-h-[67vh] flex flex-col items-center pt-28 bg-cover bg-center relative"
-      style={{ backgroundImage: `url(${BG_URL})` }}
-    >
-      {/* Background overlay */}
-      <div className="absolute inset-0 bg-black/70"></div>
+    /* ======================================================
+       🎬 NETFLIX BACKGROUND CANVAS
+       ====================================================== */
+    <div className="relative min-h-[75vh] w-full overflow-hidden">
 
-      {/* ================= SEARCH BAR ================= */}
-      <form
-        onSubmit={handleSubmit}
-        className="relative z-10 w-full max-w-2xl flex
-                   bg-black/60 backdrop-blur-md
-                   rounded-lg overflow-hidden border border-gray-700"
-      >
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder={languageConstants[langKey]?.gptSearchPlaceholder}
-          className="flex-1 px-5 py-4 bg-transparent text-white
-                     outline-none placeholder-gray-400"
-        />
+      {/* ================= POSTER WALL BACKGROUND ================= */}
+      <div
+        className="absolute inset-0 bg-cover bg-center scale-110 blur-[2px]"
+        style={{
+          backgroundImage: `url(${BG_URL})`,
+          transform: `translateY(${bgOffset}px)`,
+        }}
+      />
 
-        <button
-          disabled={loading}
-          className="px-6 bg-red-600 text-white disabled:opacity-50"
+      {/* ================= NETFLIX GRADIENT MASK ================= */}
+      <div
+        className="absolute inset-0
+                   bg-gradient-to-b
+                   from-black/90 via-black/40 to-black/90"
+      />
+
+      {/* ================= CONTENT ================= */}
+      <div className="relative z-10 flex flex-col items-center pt-28">
+
+        {/* ================= NETFLIX SEARCH BAR ================= */}
+        <form
+          onSubmit={handleSubmit}
+          className="
+            w-full max-w-3xl flex
+            bg-white/15 backdrop-blur-xl
+            rounded-2xl overflow-hidden
+            border border-white/20
+            shadow-[0_30px_100px_rgba(0,0,0,0.6)]
+            transition-all
+            focus-within:ring-2 focus-within:ring-red-600/70
+          "
         >
-          {loading
-            ? "Thinking..."
-            : languageConstants[langKey]?.search}
-        </button>
-      </form>
-
-      {/* ================= MOVIE RESULTS ================= */}
-      <div className="relative z-10 mt-8 grid grid-cols-2 md:grid-cols-5 gap-4">
-        {movies.map((movie) => (
-          <img
-            key={movie.id}
-            src={IMG_CDN_URL + movie.poster_path}
-            alt={movie.title}
-            className="w-40 rounded-lg hover:scale-105 transition"
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder={languageConstants[langKey]?.gptSearchPlaceholder}
+            className="
+              flex-1 px-6 py-4
+              bg-transparent text-white text-lg
+              outline-none placeholder-gray-300
+            "
           />
-        ))}
+
+          <button
+            disabled={loading}
+            className="
+              px-8 bg-red-600 hover:bg-red-700
+              text-white font-semibold
+              transition disabled:opacity-50
+            "
+          >
+            {loading ? "Thinking..." : languageConstants[langKey]?.search}
+          </button>
+        </form>
+
+        {/* ================= SUBTLE SHIMMER TEXT ================= */}
+        <p className="mt-6 text-sm text-gray-300 tracking-wide animate-pulse">
+          Discover movies the Netflix way
+        </p>
+
+        {/* ================= SOFT SEPARATOR ================= */}
+        <div className="mt-14 h-px w-[85%]
+                        bg-gradient-to-r
+                        from-transparent via-white/20 to-transparent" />
       </div>
     </div>
   );

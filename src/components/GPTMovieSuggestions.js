@@ -1,11 +1,28 @@
-import React from 'react'
+import React from "react";
+import { useSelector } from "react-redux";
+import MovieList from "./MovieList";
 
 const GPTMovieSuggestions = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  // 🔹 movieNames → array of strings (from GPT / mock GPT)
+  // 🔹 movieResults → array of arrays (TMDB results for each movie)
+  const { movieNames, movieResults } = useSelector(
+    (store) => store.gpt
+  );
 
-export default GPTMovieSuggestions
+  // Guard clause
+  if (!movieNames || !movieResults) return null;
+
+  return (
+    <div className="bg-black px-6 md:px-12 pb-10">
+      {movieNames.map((movieName, index) => (
+        <MovieList
+          key={movieName}
+          title={movieName}
+          movies={movieResults[index]}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default GPTMovieSuggestions;

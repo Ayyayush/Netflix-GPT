@@ -625,7 +625,173 @@ export const mockGptResponse = (query) => {
     ];
   }
 
-  
+    /* ======================================================
+     📺 WEB SERIES (GENERAL)
+     ====================================================== */
+  if (q.includes("web series") || q.includes("series") || q.includes("tv")) {
+    return [
+      "Breaking Bad",
+      "Stranger Things",
+      "Money Heist",
+      "The Boys",
+      "Game of Thrones",
+    ];
+  }
+
+  /* ======================================================
+     🇮🇳 INDIAN WEB SERIES
+     ====================================================== */
+  if (q.includes("indian web") || q.includes("hindi series")) {
+    return [
+      "Mirzapur",
+      "The Family Man",
+      "Sacred Games",
+      "Panchayat",
+      "Asur",
+    ];
+  }
+
+  /* ======================================================
+     🦸 SUPERHERO / AVENGERS / MCU
+     ====================================================== */
+  if (
+    q.includes("avengers") ||
+    q.includes("marvel") ||
+    q.includes("mcu") ||
+    q.includes("superhero")
+  ) {
+    return [
+      "Avengers: Endgame",
+      "Avengers: Infinity War",
+      "Iron Man",
+      "Captain America: Civil War",
+      "Thor: Ragnarok",
+    ];
+  }
+
+  /* ======================================================
+     🦇 DC SUPERHEROES
+     ====================================================== */
+  if (q.includes("dc") || q.includes("batman")) {
+    return [
+      "The Dark Knight",
+      "Joker",
+      "Man of Steel",
+      "The Batman",
+      "Justice League (Snyder Cut)",
+    ];
+  }
+
+  /* ======================================================
+     🧬 MULTIVERSE / TIME TRAVEL
+     ====================================================== */
+  if (
+    q.includes("multiverse") ||
+    q.includes("time travel") ||
+    q.includes("timeline")
+  ) {
+    return [
+      "Avengers: Endgame",
+      "Interstellar",
+      "Tenet",
+      "Predestination",
+      "Doctor Strange",
+    ];
+  }
+
+  /* ======================================================
+     🧟 ZOMBIE / APOCALYPSE
+     ====================================================== */
+  if (q.includes("zombie") || q.includes("apocalypse")) {
+    return [
+      "World War Z",
+      "Train to Busan",
+      "28 Days Later",
+      "I Am Legend",
+      "The Walking Dead",
+    ];
+  }
+
+  /* ======================================================
+     🕵️ DETECTIVE / MYSTERY
+     ====================================================== */
+  if (q.includes("detective") || q.includes("mystery")) {
+    return [
+      "Sherlock",
+      "Knives Out",
+      "Se7en",
+      "Zodiac",
+      "True Detective",
+    ];
+  }
+
+  /* ======================================================
+     🏴‍☠️ ADVENTURE / TREASURE
+     ====================================================== */
+  if (q.includes("adventure") || q.includes("treasure")) {
+    return [
+      "Pirates of the Caribbean",
+      "Indiana Jones",
+      "National Treasure",
+      "The Mummy",
+      "Uncharted",
+    ];
+  }
+
+  /* ======================================================
+     🎮 GAMING / VIRTUAL WORLD
+     ====================================================== */
+  if (q.includes("gaming") || q.includes("virtual")) {
+    return [
+      "Ready Player One",
+      "Free Guy",
+      "Tron: Legacy",
+      "Wreck-It Ralph",
+      "Sword Art Online",
+    ];
+  }
+
+  /* ======================================================
+     🏫 COLLEGE / YOUTH
+     ====================================================== */
+  if (q.includes("college") || q.includes("student") || q.includes("youth")) {
+    return [
+      "3 Idiots",
+      "Chhichhore",
+      "Dead Poets Society",
+      "Dil Chahta Hai",
+      "Yeh Jawaani Hai Deewani",
+    ];
+  }
+
+  /* ======================================================
+     👨‍👩‍👧 FRIENDS / GROUP WATCH
+     ====================================================== */
+  if (q.includes("friends") || q.includes("group")) {
+    return [
+      "Dil Chahta Hai",
+      "Zindagi Na Milegi Dobara",
+      "Hangover",
+      "Golmaal",
+      "Ocean's Eleven",
+    ];
+  }
+
+  /* ======================================================
+     🔪 DARK / BRUTAL / INTENSE
+     ====================================================== */
+  if (q.includes("dark") || q.includes("brutal")) {
+    return [
+      "Joker",
+      "Nightcrawler",
+      "Fight Club",
+      "American Psycho",
+      "No Country for Old Men",
+    ];
+  }
+
+
+
   /* ================= DEFAULT SMART FALLBACK ================= */
   return [
     "Inception",
