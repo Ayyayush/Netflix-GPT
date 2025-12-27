@@ -16,11 +16,11 @@ const GPTSearchBar = () => {
   const langKey = useSelector((store) => store.config.lang);
 
   /* ======================================================
-     🎞️ BACKGROUND PARALLAX ON SCROLL (NETFLIX FEEL)
+     🎞️ BACKGROUND PARALLAX (SUBTLE – MOBILE SAFE)
      ====================================================== */
   useEffect(() => {
     const handleScroll = () => {
-      setBgOffset(window.scrollY * 0.2);
+      setBgOffset(window.scrollY * 0.15);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -86,13 +86,13 @@ const GPTSearchBar = () => {
 
   return (
     /* ======================================================
-       🎬 NETFLIX BACKGROUND CANVAS
+       🎬 NETFLIX HERO CANVAS
        ====================================================== */
-    <div className="relative min-h-[75vh] w-full overflow-hidden">
+    <div className="relative min-h-[70vh] sm:min-h-[75vh] w-full overflow-hidden">
 
-      {/* ================= POSTER WALL BACKGROUND ================= */}
+      {/* ================= BACKGROUND WALL ================= */}
       <div
-        className="absolute inset-0 bg-cover bg-center scale-110 blur-[2px]"
+        className="absolute inset-0 bg-cover bg-center scale-110 blur-[1.5px]"
         style={{
           backgroundImage: `url(${BG_URL})`,
           transform: `translateY(${bgOffset}px)`,
@@ -103,23 +103,25 @@ const GPTSearchBar = () => {
       <div
         className="absolute inset-0
                    bg-gradient-to-b
-                   from-black/90 via-black/40 to-black/90"
+                   from-black/90 via-black/45 to-black/90"
       />
 
       {/* ================= CONTENT ================= */}
-      <div className="relative z-10 flex flex-col items-center pt-28">
+      <div className="relative z-10 flex flex-col items-center pt-24 sm:pt-28 px-4">
 
-        {/* ================= NETFLIX SEARCH BAR ================= */}
+        {/* ================= SEARCH BAR ================= */}
         <form
           onSubmit={handleSubmit}
           className="
-            w-full max-w-3xl flex
+            w-full max-w-xl sm:max-w-2xl md:max-w-3xl
+            flex
             bg-white/15 backdrop-blur-xl
-            rounded-2xl overflow-hidden
+            rounded-xl sm:rounded-2xl
+            overflow-hidden
             border border-white/20
-            shadow-[0_30px_100px_rgba(0,0,0,0.6)]
-            transition-all
+            shadow-[0_25px_80px_rgba(0,0,0,0.6)]
             focus-within:ring-2 focus-within:ring-red-600/70
+            transition
           "
         >
           <input
@@ -127,8 +129,9 @@ const GPTSearchBar = () => {
             onChange={(e) => setQuery(e.target.value)}
             placeholder={languageConstants[langKey]?.gptSearchPlaceholder}
             className="
-              flex-1 px-6 py-4
-              bg-transparent text-white text-lg
+              flex-1 px-4 sm:px-6 py-3 sm:py-4
+              bg-transparent text-white
+              text-base sm:text-lg
               outline-none placeholder-gray-300
             "
           />
@@ -136,8 +139,10 @@ const GPTSearchBar = () => {
           <button
             disabled={loading}
             className="
-              px-8 bg-red-600 hover:bg-red-700
+              px-5 sm:px-8
+              bg-red-600 hover:bg-red-700
               text-white font-semibold
+              text-sm sm:text-base
               transition disabled:opacity-50
             "
           >
@@ -145,13 +150,13 @@ const GPTSearchBar = () => {
           </button>
         </form>
 
-        {/* ================= SUBTLE SHIMMER TEXT ================= */}
-        <p className="mt-6 text-sm text-gray-300 tracking-wide animate-pulse">
+        {/* ================= SUBTEXT ================= */}
+        <p className="mt-5 sm:mt-6 text-xs sm:text-sm text-gray-300 tracking-wide animate-pulse">
           Discover movies the Netflix way
         </p>
 
-        {/* ================= SOFT SEPARATOR ================= */}
-        <div className="mt-14 h-px w-[85%]
+        {/* ================= SEPARATOR ================= */}
+        <div className="mt-10 sm:mt-14 h-px w-[90%] sm:w-[85%]
                         bg-gradient-to-r
                         from-transparent via-white/20 to-transparent" />
       </div>

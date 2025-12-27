@@ -4,29 +4,71 @@ const VideoTitle = ({ title, overview }) => {
   return (
     <div className="absolute inset-0 z-20 flex items-center">
       {/* Content */}
-      <div className="px-12 md:px-24 max-w-2xl text-white">
-        
+      <div
+        className="
+          px-4 sm:px-8 md:px-16 lg:px-24
+          max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl
+          text-white
+        "
+      >
         {/* Title */}
-        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight drop-shadow-lg">
+        <h1
+          className="
+            text-2xl sm:text-4xl md:text-5xl lg:text-6xl
+            font-extrabold
+            leading-tight
+            drop-shadow-lg
+          "
+        >
           {title}
         </h1>
 
         {/* Overview */}
-        <p className="mt-4 md:mt-6 text-sm md:text-lg text-gray-200 leading-relaxed line-clamp-4">
+        <p
+          className="
+            mt-3 sm:mt-4 md:mt-6
+            text-xs sm:text-sm md:text-base lg:text-lg
+            text-gray-200
+            leading-relaxed
+            line-clamp-3 sm:line-clamp-4
+          "
+        >
           {overview}
         </p>
 
         {/* Buttons */}
-        <div className="mt-6 flex items-center gap-4">
-          
+        <div className="mt-4 sm:mt-6 flex items-center gap-3 sm:gap-4">
           {/* Play Button */}
-          <button className="flex items-center gap-2 bg-white text-black px-6 py-2 rounded-md font-semibold hover:bg-gray-200 transition">
+          <button
+            className="
+              flex items-center gap-2
+              bg-white text-black
+              px-4 sm:px-6
+              py-1.5 sm:py-2
+              rounded-md
+              text-sm sm:text-base
+              font-semibold
+              hover:bg-gray-200
+              transition
+            "
+          >
             ▶ Play
           </button>
 
           {/* More Info Button */}
-          <button className="flex items-center gap-2 bg-gray-600/70 text-white px-6 py-2 rounded-md font-semibold hover:bg-gray-600 transition">
-            {/* Info SVG */}
+          <button
+            className="
+              flex items-center gap-2
+              bg-gray-600/70 text-white
+              px-4 sm:px-6
+              py-1.5 sm:py-2
+              rounded-md
+              text-sm sm:text-base
+              font-semibold
+              hover:bg-gray-600
+              transition
+            "
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="18"
@@ -44,12 +86,11 @@ const VideoTitle = ({ title, overview }) => {
             </svg>
             More Info
           </button>
-
         </div>
       </div>
 
-      {/* Netflix-style left fade */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black via-black/70 to-transparent"></div>
+      {/* Netflix left fade */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black via-black/70 to-transparent" />
     </div>
   );
 };

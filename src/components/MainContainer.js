@@ -4,22 +4,25 @@ import VideoTitle from "./VideoTitle";
 import VideoBackground from "./VideoBackground";
 
 const MainContainer = () => {
-  const movies = useSelector(
-    (store) => store.movies?.nowPlayingMovies
-  );
+  const movies = useSelector((store) => store.movies?.nowPlayingMovies);
 
-  // Guard condition
   if (!movies || movies.length === 0) return null;
 
   const mainMovie = movies[0];
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden">
+    <div className="relative w-screen h-[85vh] sm:h-screen overflow-hidden">
+      {/* Video */}
+      <VideoBackground movieId={mainMovie.id} />
+
+      {/* Title Overlay */}
       <VideoTitle
         title={mainMovie.title}
         overview={mainMovie.overview}
       />
-      <VideoBackground movieId={mainMovie.id} />
+
+      {/* Bottom Netflix fade */}
+      <div className="absolute bottom-0 w-full h-32 bg-gradient-to-t from-black to-transparent" />
     </div>
   );
 };

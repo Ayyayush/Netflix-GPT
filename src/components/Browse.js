@@ -1,10 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
 import Header from "./Header";
 import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
 import GPTSearch from "./GPTSearch";
-
-import { useSelector } from "react-redux";
 
 // Movie fetching hooks
 import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
@@ -15,19 +15,22 @@ import usePopularMovies from "../hooks/usePopularMovies";
 const Browse = () => {
   const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
 
-  // Fetch movies only once
+  // 🔥 Fetch movies (runs once via hooks)
   useNowPlayingMovies();
   useUpcomingMovies();
   useTopRatedMovies();
   usePopularMovies();
 
   return (
-    <div className="bg-black min-h-screen">
-      {/* Header */}
+    <div className="bg-black min-h-screen w-full overflow-x-hidden">
+      {/* ================= HEADER ================= */}
       <Header />
 
-      {/* Content */}
-      <div className="pt-[72px]">
+      {/* ================= MAIN CONTENT =================
+         pt adjusted responsively so content never hides
+         behind fixed header on mobile
+      */}
+      <div className="pt-[64px] sm:pt-[72px] md:pt-[80px]">
         {showGptSearch ? (
           <GPTSearch />
         ) : (

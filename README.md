@@ -12,8 +12,8 @@ Netflix-GPT is a **Netflix-inspired web application** built using **Create React
 ### Core Focus Areas
 - Real-world streaming UI
 - Authentication workflows
-- Global state management using Redux
-- AI-powered movie recommendations using TMDB API
+- Global state management using Redux Toolkit
+- AI-powered movie recommendations using TMDB API (with GPT-style logic)
 
 ### Development Server
 - Runs on: http://localhost:3000  
@@ -57,10 +57,13 @@ Netflix-GPT is a **Netflix-inspired web application** built using **Create React
 - Discover TMDB image CDN URL
 - Improve Browse page UI
 - Add separate hooks for different movie categories  
-  (Upcoming, Trending, Popular, etc.)
-- Building GPT Search Feature 
-GPT Search Page
-Multi- Lnaguage Feature in our Application (important feature )
+  (Upcoming, Trending, Popular, Top Rated, Horror)
+- Build GPT Search page
+- Multi-language feature integration
+- OpenAI API integration (with fallback logic)
+- Build GPT suggestion cards UI
+- Memoization & caching of API results
+- Mobile responsiveness & UI polish
 
 ---
 
@@ -180,6 +183,8 @@ The **Header** is the most critical component.
 - Handle sign out
 - Listen to Firebase auth state
 - Control navigation based on auth status
+- Toggle GPT Search mode
+- Handle language selection (only in GPT mode)
 
 ### Key Design Rule
 > All authentication-based navigation happens **only inside the Header**
@@ -194,9 +199,10 @@ The **Header** is the most critical component.
 ## 🔹 Main Movie Section (Hero Section)
 
 - Displays featured movie
-- Background trailer or image
+- Background YouTube trailer
 - Title & description overlay
-- Styled similar to Netflix hero banner
+- Netflix-style gradients
+- Fully responsive across devices
 
 ---
 
@@ -268,15 +274,11 @@ Forms use `useRef` instead of controlled inputs.
 - Cleaner logic
 - Scalable architecture
 
-### Redux Store
-- Created using Redux Toolkit
-- `userSlice` manages user data
-
-### Stored Data
-- uid
-- email
-- displayName
-- photoURL
+### Redux Store Slices
+- `userSlice` – authentication data
+- `moviesSlice` – TMDB movie data
+- `gptSlice` – GPT search state & results
+- `configSlice` – language preferences
 
 ---
 
@@ -287,51 +289,52 @@ Resolved issues:
 - Auth listener memory leaks
 - Signup profile update bug
 - Redirect loops
-- Removed hardcoded values
+- Hardcoded API values
+- GitHub secret exposure issue
 
 ---
 
-## 🔹 Step 11: Constants Management
+## 🔹 Step 11: Constants & Environment Variables
 
-All reusable values moved to a **constants file**.
-
-Examples:
-- Netflix logo
-- Default avatar
-- API config values
+- All reusable values moved to constants
+- Sensitive keys moved to `.env`
+- `.env` added to `.gitignore`
+- Environment variables configured for Vercel
 
 ---
 
 ## 🔹 Step 12: Netflix-GPT (AI Features)
 
-### Movie Search
-- Keyword-based movie search
+### GPT Search Page
+- Natural language movie search
+- GPT-style recommendation logic
 
-### AI-Based Recommendations
-- Smart suggestions
-- Powered by TMDB API
+### Fallback Strategy
+- If OpenAI API fails or quota is exceeded:
+  - Mock GPT logic is used
+  - App continues to work without breaking
 
-Purpose:
-- Simulate AI experience
-- Practice API integration
+### TMDB Integration
+- GPT results → TMDB Search API
+- Movie cards rendered dynamically
 
 ---
 
-## 🔹 Feature Summary
+## 🔹 Performance Optimizations
 
-### New Users
-- Sign Up
-- Sign In
-- Auth routing
+- Memoization of API responses
+- Caching GPT + TMDB results
+- Avoiding unnecessary re-fetches
+- Lazy rendering of movie rows
 
-### Authenticated Users
-- Browse page
-- Header
-- Hero section
+---
 
-### Netflix-GPT
-- Movie search
-- AI-based recommendations
+## 🔹 Mobile Responsiveness
+
+- Fully responsive across devices
+- Netflix-style scaling & spacing
+- Touch-friendly horizontal scrolling
+- Proper gradients on small screens
 
 ---
 

@@ -67,26 +67,40 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50">
-      <div className="flex items-center justify-between px-6 md:px-12 py-4
-                      bg-gradient-to-b from-black/90 via-black/70 to-transparent
-                      backdrop-blur-md">
-
+      <div
+        className="
+          flex items-center justify-between
+          px-4 sm:px-6 md:px-12
+          py-3 sm:py-4
+          bg-gradient-to-b from-black/90 via-black/70 to-transparent
+          backdrop-blur-md
+        "
+      >
         {/* Logo */}
-        <img src={LOGO} alt="Netflix" className="w-28 md:w-36 cursor-pointer" />
+        <img
+          src={LOGO}
+          alt="Netflix"
+          className="w-24 sm:w-28 md:w-36 cursor-pointer"
+        />
 
         {user && (
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 sm:gap-6">
 
             {/* GPT Button */}
             <button
               onClick={handleGPTSearchClick}
-              className={`px-5 py-1.5 text-sm font-semibold rounded-full
+              className={`
+                px-3 sm:px-5
+                py-1.5
+                text-xs sm:text-sm
+                font-semibold rounded-full
                 transition-all
                 ${
                   showGptSearch
                     ? "bg-red-600 text-white"
                     : "bg-white/10 text-white hover:bg-white/20"
-                }`}
+                }
+              `}
             >
               {showGptSearch ? "Home" : "GPT Search"}
             </button>
@@ -100,12 +114,21 @@ const Header = () => {
                 <img
                   src={user.photoURL}
                   alt="User"
-                  className="w-9 h-9 rounded-md object-cover border border-white/20"
+                  className="
+                    w-8 h-8 sm:w-9 sm:h-9
+                    rounded-md object-cover
+                    border border-white/20
+                  "
                 />
+
+                {/* Hide arrow on very small screens */}
                 <svg
-                  className={`w-4 h-4 text-white transition-transform ${
-                    showMenu ? "rotate-180" : ""
-                  }`}
+                  className={`
+                    hidden sm:block
+                    w-4 h-4 text-white
+                    transition-transform
+                    ${showMenu ? "rotate-180" : ""}
+                  `}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -121,27 +144,37 @@ const Header = () => {
 
               {showMenu && (
                 <div
-                  className="absolute right-0 mt-3 w-52
-                             rounded-xl overflow-hidden
-                             bg-gradient-to-b from-zinc-900/90 to-black/95
-                             backdrop-blur-xl
-                             shadow-2xl border border-white/10"
+                  className="
+                    absolute right-0 mt-3
+                    w-44 sm:w-52
+                    rounded-xl overflow-hidden
+                    bg-gradient-to-b from-zinc-900/90 to-black/95
+                    backdrop-blur-xl
+                    shadow-2xl border border-white/10
+                  "
                 >
                   {/* Language Selector – ONLY in GPT mode */}
                   {showGptSearch && (
                     <div className="px-4 py-3 border-b border-white/10">
-                      <p className="text-xs text-gray-400 mb-1">Language</p>
+                      <p className="text-xs text-gray-400 mb-1">
+                        Language
+                      </p>
                       <select
                         value={language}
                         onChange={handleLanguageChange}
-                        className="w-full bg-zinc-900 text-white text-sm
-                                   px-3 py-2 rounded-md
-                                   border border-white/20
-                                   focus:outline-none focus:ring-2
-                                   focus:ring-red-600"
+                        className="
+                          w-full bg-zinc-900 text-white text-sm
+                          px-3 py-2 rounded-md
+                          border border-white/20
+                          focus:outline-none focus:ring-2
+                          focus:ring-red-600
+                        "
                       >
                         {SUPPORTED_LANGUAGES.map((lang) => (
-                          <option key={lang.identifier} value={lang.identifier}>
+                          <option
+                            key={lang.identifier}
+                            value={lang.identifier}
+                          >
                             {lang.name}
                           </option>
                         ))}
@@ -152,9 +185,13 @@ const Header = () => {
                   {/* Sign Out */}
                   <button
                     onClick={handleSignOut}
-                    className="w-full px-4 py-3 text-sm text-left
-                               text-gray-200 hover:bg-red-600
-                               transition-all"
+                    className="
+                      w-full px-4 py-3
+                      text-sm text-left
+                      text-gray-200
+                      hover:bg-red-600
+                      transition-all
+                    "
                   >
                     Sign Out
                   </button>

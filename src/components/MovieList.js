@@ -2,19 +2,27 @@ import React from "react";
 import MovieCard from "./MovieCard";
 
 const MovieList = ({ title, movies }) => {
-  if (!movies) return null;
+  if (!movies || movies.length === 0) return null;
 
   return (
-    <div className="mb-8">
-      <h1 className="text-xl md:text-2xl font-semibold text-white mb-4">
+    <div className="space-y-3">
+      {/* Row title */}
+      <h2 className="text-base sm:text-lg md:text-xl font-semibold text-white tracking-wide">
         {title}
-      </h1>
+      </h2>
 
-      <div className="flex gap-4 overflow-x-scroll scrollbar-hide">
+      {/* Horizontal row */}
+      <div
+        className="
+          flex gap-3 sm:gap-4
+          overflow-x-scroll scrollbar-hide
+          py-2
+        "
+      >
         {movies.map((movie) => (
           <MovieCard
             key={movie.id}
-            posterPath={movie.poster_path}   // ✅ FIX HERE
+            posterPath={movie.poster_path}
           />
         ))}
       </div>

@@ -1,11 +1,22 @@
 import React from "react";
 import GPTSearchBar from "./GPTSearchBar";
 import GPTMovieSuggestions from "./GPTMovieSuggestions";
-import languageConstants from "../utils/languageConstants";
+
 const GPTSearch = () => {
   return (
-    <div className="pt-24 min-h-screen bg-black text-white">
+    <div
+      className="
+        min-h-screen
+        bg-black
+        text-white
+        pt-[64px] sm:pt-[72px] md:pt-[80px]
+        overflow-x-hidden
+      "
+    >
+      {/* Search Section */}
       <GPTSearchBar />
+
+      {/* Results Section */}
       <GPTMovieSuggestions />
     </div>
   );

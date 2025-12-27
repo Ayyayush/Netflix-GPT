@@ -36,7 +36,7 @@ const Login = () => {
     }
 
     if (!isSignInForm) {
-      // SIGN UP
+      // ================= SIGN UP =================
       createUserWithEmailAndPassword(
         auth,
         email.current.value,
@@ -62,7 +62,7 @@ const Login = () => {
         })
         .catch((error) => setErrorMessage(error.message));
     } else {
-      // SIGN IN
+      // ================= SIGN IN =================
       signInWithEmailAndPassword(
         auth,
         email.current.value,
@@ -73,63 +73,106 @@ const Login = () => {
 
   return (
     <div
-      className="relative h-screen w-screen bg-cover bg-center"
+      className="relative min-h-screen w-full bg-cover bg-center"
       style={{ backgroundImage: `url(${BG_URL})` }}
     >
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/60"></div>
+      {/* Background overlay */}
+      <div className="absolute inset-0 bg-black/70"></div>
 
       <Header />
 
-      {/* Login Form */}
+      {/* ================= LOGIN CARD ================= */}
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="absolute top-1/2 left-1/2 z-10 w-[350px]
-                   -translate-x-1/2 -translate-y-1/2
-                   bg-black/75 p-10 rounded-lg text-white"
+        className="
+          absolute left-1/2 top-1/2 z-10
+          w-[90%] max-w-sm sm:max-w-md
+          -translate-x-1/2 -translate-y-1/2
+          bg-black/80 backdrop-blur-md
+          p-6 sm:p-8
+          rounded-xl
+          text-white
+          shadow-2xl
+        "
       >
-        <h1 className="text-3xl font-bold mb-5">
+        {/* Title */}
+        <h1 className="text-2xl sm:text-3xl font-bold mb-6">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
 
+        {/* Name (only for signup) */}
         {!isSignInForm && (
           <input
             ref={name}
             type="text"
             placeholder="Full Name"
-            className="p-4 my-3 w-full rounded bg-gray-700"
+            className="
+              p-3 sm:p-4 mb-3
+              w-full rounded-md
+              bg-gray-700
+              outline-none
+              focus:ring-2 focus:ring-red-600
+            "
           />
         )}
 
+        {/* Email */}
         <input
           ref={email}
           type="text"
           placeholder="Email"
-          className="p-4 my-3 w-full rounded bg-gray-700"
+          className="
+            p-3 sm:p-4 mb-3
+            w-full rounded-md
+            bg-gray-700
+            outline-none
+            focus:ring-2 focus:ring-red-600
+          "
         />
 
+        {/* Password */}
         <input
           ref={password}
           type="password"
           placeholder="Password"
-          className="p-4 my-3 w-full rounded bg-gray-700"
+          className="
+            p-3 sm:p-4 mb-3
+            w-full rounded-md
+            bg-gray-700
+            outline-none
+            focus:ring-2 focus:ring-red-600
+          "
         />
 
+        {/* Error message */}
         {errorMessage && (
-          <p className="text-red-500 text-sm py-2">{errorMessage}</p>
+          <p className="text-red-500 text-sm mb-3">
+            {errorMessage}
+          </p>
         )}
 
+        {/* Submit button */}
         <button
           type="button"
           onClick={handleButtonClick}
-          className="w-full bg-red-700 p-3 rounded font-semibold hover:bg-red-600"
+          className="
+            w-full bg-red-600
+            py-3 rounded-md
+            font-semibold
+            hover:bg-red-700
+            transition
+          "
         >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
 
+        {/* Toggle */}
         <p
-          className="py-4 text-sm cursor-pointer hover:underline"
-          onClick={() => setIsSignInForm(!isSignInForm)}
+          className="mt-5 text-sm cursor-pointer hover:underline text-gray-300"
+          onClick={() => {
+            setIsSignInForm(!isSignInForm);
+            setErrorMessage(null);
+          }}
         >
           {isSignInForm
             ? "New here? Sign Up Now"
